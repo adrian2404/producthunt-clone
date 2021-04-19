@@ -2,13 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home page</title>
+    <title>Login</title>
 </head>
 <body>
 {% extends 'base.html' %}
 
 {% block content %}
-Login
+
+  {%  if error %}
+    {{ error }}
+    <br />
+    <br />
+  {% endif %}
+
+  <h1>Login</h1>
+
+  <form method="POST" action="{% url 'login' %}">
+  {% csrf_token %}
+  Username:
+  <br />
+  <input type="text" name="username"/>
+  <br />
+  Password:
+  <br />
+  <input type="password" name="password"/>
+
+  <br />
+  <br />
+  <input class="btn btn-primary" type="submit" value="Login">
+  </form>
+
 {% endblock %}
 </body>
 </html>
