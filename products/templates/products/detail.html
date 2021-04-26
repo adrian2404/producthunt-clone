@@ -14,7 +14,7 @@
       <img src="{{ product.image.url }}" class="img-fluid"/>
     </div>
     <div class="col-4">
-      <a href="javascript:{document.getElementById('upvote').submit()}"><button class="btn btn-primary btn-lg btn-block"> Upvote {{ product.votes_total }}</button></a>
+      <a role="button" href="javascript:{document.getElementById('upvote').submit()}" {% if disable_vote %} class="btn btn-primary btn-lg disabled"  aria-disabled="true" {% else %} class="btn btn-primary btn-lg" {% endif %}> Upvote {{ product.vote_set.all | length }}</a>
     </div>
   </div>
   <div class="row pt-3">

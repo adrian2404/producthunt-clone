@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  {% for product in products.all %}
+  {% for product, disable_vote in products %}
     <div class="row pt-3">
       <div class="col-2" onclick="window.location='{% url 'detail' product.id %}'" style="cursor: pointer">
         <img src="{{ product.icon.url }}" class="img-fluid"/>
@@ -11,7 +11,7 @@
         <p>{{ product.summary }}</p>
       </div>
       <div class="col-4">
-        <a href="javascript:{document.getElementById('upvote{{ product.id }}').submit()}"><button class="btn btn-primary btn-lg btn-block"> Upvote {{ product.votes_total }}</button></a>
+        <a role="button" href="javascript:{document.getElementById('upvote{{ product.id }}').submit()}" {% if disable_vote %} class="btn btn-primary btn-lg disabled"  aria-disabled="true" {% else %} class="btn btn-primary btn-lg" {% endif %}> Upvote {{ product.vote_set.all | length }}</a>
       </div>
     </div>
     <form id="upvote{{ product.id }}" method="POST" action="{% url 'upvote'  product.id %}">
